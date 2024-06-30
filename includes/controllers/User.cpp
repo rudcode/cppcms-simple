@@ -4,6 +4,7 @@
 #include <cppcms/url_mapper.h>
 #include <cppcms/http_response.h>
 
+// constructor
 User::User(cppcms::service &srv) : cppcms::application(srv)
 {
     dispatcher().assign("", &User::getUser, this);

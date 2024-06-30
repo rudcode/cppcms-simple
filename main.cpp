@@ -8,40 +8,22 @@
 #include <iostream> 
 #include <map>
 #include <controllers/User.h>
+#include <controllers/Auth.h>
 
 class hello : public cppcms::application {  
-public:  
+public:
     hello(cppcms::service &srv) :  
         cppcms::application(srv)  
-    {  
-        attach(new User(srv), "users", "users/{1}",
-            "users(/(.*))?", 1
+    {
+        attach(new User(srv), "users", "/users/{1}",
+            "/users(/(.*))?", 1
         );
-        mapper().root("hello");
-    }  
-    virtual void main(std::string url);  
-}; 
-
-void hello::main(std::string url)  
-{  
-    std::map<std::string, std::string> envs = request().getenv();
-    std::string wedus = request().getenv(std::string("HTTP_WEDUS"));
-    std::cout<<"URL nya: "<<url<<std::endl;
-    cppcms::http::response& resp = response();
-
-    resp.set_header("session-id", "miong-miong");
-    resp.out()<<"auk auk auk";
-
-    /*
-    response().set_header("session-id", "miong miong");
-    response().out() <<  
-        "<html>\n"  
-        "<body>\n"  
-        "  <h1>Hello World</h1>\n"  
-        "</body>\n"  
-        "</html>\n";  
-    */
-}  
+        attach(new Auth(srv), "auth", "/auth/{1}",
+            "/auth(/(.*))?", 1
+        );
+        mapper().root("/");
+    }
+};
 
 int main(int argc,char ** argv)  
 {  
