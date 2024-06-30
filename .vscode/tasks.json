@@ -13,7 +13,10 @@
                 "${fileDirname}/out/${fileBasenameNoExtension}",
                 "-I/opt/homebrew/include",
                 "-L/opt/homebrew/lib",
-                "-lcppcms"
+                "-I${fileDirname}/includes",
+                "-lcppcms",
+                "--std=c++11",
+                "-v"
             ],
             "options": {
                 "cwd": "${fileDirname}"

@@ -4,14 +4,20 @@
 #include <cppcms/service.h>  
 #include <cppcms/http_response.h>  
 #include <cppcms/http_request.h>  
+#include <cppcms/url_mapper.h>
 #include <iostream> 
 #include <map>
+#include <controllers/User.h>
 
 class hello : public cppcms::application {  
 public:  
     hello(cppcms::service &srv) :  
         cppcms::application(srv)  
     {  
+        attach(new User(srv), "users", "users/{1}",
+            "users(/(.*))?", 1
+        );
+        mapper().root("hello");
     }  
     virtual void main(std::string url);  
 }; 
@@ -19,8 +25,14 @@ public:
 void hello::main(std::string url)  
 {  
     std::map<std::string, std::string> envs = request().getenv();
-    std::string wedus = request().getenv(std::string("wedus"));
+    std::string wedus = request().getenv(std::string("HTTP_WEDUS"));
     std::cout<<"URL nya: "<<url<<std::endl;
+    cppcms::http::response& resp = response();
+
+    resp.set_header("session-id", "miong-miong");
+    resp.out()<<"auk auk auk";
+
+    /*
     response().set_header("session-id", "miong miong");
     response().out() <<  
         "<html>\n"  
@@ -28,6 +40,7 @@ void hello::main(std::string url)
         "  <h1>Hello World</h1>\n"  
         "</body>\n"  
         "</html>\n";  
+    */
 }  
 
 int main(int argc,char ** argv)  
