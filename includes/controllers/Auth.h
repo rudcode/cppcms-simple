@@ -3,8 +3,10 @@
 
 #include <cppcms/application.h>
 #include <cppcms/service.h>
+#include <data/Master.h>
 
-class Auth : public cppcms::application
+using database::Master;
+class Auth : public Master
 {
 public:
     Auth(cppcms::service &srv);
