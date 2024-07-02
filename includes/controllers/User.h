@@ -3,8 +3,11 @@
 
 #include <cppcms/application.h>
 #include <cppcms/service.h>
+#include <data/Master.h>
 
-class User : public cppcms::application
+using database::Master;
+
+class User : public Master
 {
 public:
     User(cppcms::service &srv);

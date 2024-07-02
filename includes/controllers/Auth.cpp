@@ -4,6 +4,8 @@
 #include <cppcms/url_mapper.h>
 #include <cppcms/http_response.h>
 #include <cppdb/frontend.h>
+#include <booster/locale/conversion.h>
+#include <cppcms/http_request.h>
 
 // constructor
 Auth::Auth(cppcms::service &srv) : Master(srv)
@@ -18,17 +20,20 @@ Auth::Auth(cppcms::service &srv) : Master(srv)
 // method login
 void Auth::login()
 {
-    cppdb::result res = sql() << "SELECT id,n,f,t,name FROM test";
-
-    while(res.next()) {
-        double f=-1;
-        int id,k;
-        std::tm atime;
-        std::string name;
-        res >> id >> k >> f >> atime >> name;
-        std::cout <<id << ' '<<k <<' '<<f<<' '<<name<<' '<<asctime(&atime)<< std::endl;
+    std::string req_method = request().request_method();
+    if (req_method.compare("POST") != 0) {
+        response().out() << "Method does not allowed";
+        return;
     }
-    response().out() <<"login API";
+    cppdb::result res = sql() << "SELECT * FROM users WHERE usrsLoginId = ?" << request().post("login_id");
+
+    if(res.next()) {
+        int colFirstName = res.find_column("usrsFirstName");
+        std::string firstName;
+        res.fetch(colFirstName, firstName);
+        std::cout << "First name : " << firstName << std::endl;
+    }
+    response().out() <<"User not found";
 }
 
 // method logout

@@ -5,7 +5,7 @@
 #include <cppcms/http_response.h>
 
 // constructor
-User::User(cppcms::service &srv) : cppcms::application(srv)
+User::User(cppcms::service &srv) : Master(srv)
 {
     dispatcher().assign("", &User::getUser, this);
     mapper().assign("");
