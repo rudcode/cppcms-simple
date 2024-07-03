@@ -6,6 +6,7 @@
 #include <cppdb/frontend.h>
 #include <booster/locale/conversion.h>
 #include <cppcms/http_request.h>
+#include <picojson.h>
 
 // constructor
 Auth::Auth(cppcms::service &srv) : Master(srv)
@@ -25,7 +26,19 @@ void Auth::login()
         response().out() << "Method does not allowed";
         return;
     }
-    cppdb::result res = sql() << "SELECT * FROM users WHERE usrsLoginId = ?" << request().post("login_id");
+    std::pair<void *,size_t> post_data = request().raw_post_data();
+    std::string rawData = std::string(reinterpret_cast<char const *>(post_data.first),post_data.second);
+    picojson::value _user;
+    const char* jsonUser = rawData.c_str();
+    std::string is_error;
+    const char* json_end = picojson::parse(_user, jsonUser, jsonUser + strlen(jsonUser), &is_error);
+    if (!is_error.empty()) {
+        response().out() << "JSON Invalid";
+        return;
+    }
+    std::string LoginID = _user.get("User").get("LoginId").get<std::string>();
+    std::string Password = _user.get("User").get("Password").get<std::string>();
+    cppdb::result res = sql() << "SELECT * FROM users WHERE usrsLoginId = ?" << LoginID;
 
     if(res.next()) {
         int colFirstName = res.find_column("usrsFirstName");

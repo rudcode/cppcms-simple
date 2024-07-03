@@ -26,6 +26,7 @@ include_directories(${INC_BOOSTER})
 include_directories(${INC_CPPCMS})
 include_directories(${CMAKE_SOURCE_DIR}/includes)
 include_directories(${THIRD_PARTY_DIR}/cppdb/include)
+include_directories(${THIRD_PARTY_DIR}/picojson)
 link_directories(${THIRD_PARTY_DIR}/cppdb/lib)
 add_executable(${PROJECT_NAME} ${API_SRC})
 target_link_libraries(${PROJECT_NAME}
