@@ -12,7 +12,18 @@ Research REST API with [CppCMS](http://cppcms.com/wikipp/en/page/main)
 6. Run `make`
 7. After executable `cppcms_simple` built, then you can run it by command `./cppcms_simple -c ../config.json`
 
-Note: make sure your database connection is correct on the file `config.json`
+Note:
+
+- CPPDB on the third-party submodules are built with MacOS M1 CPU, if you are run with other Arch maybe return error
+- Make sure your database connection is correct on the file `config.json`
+
+### How to run on Linux
+
+- TODO LIST
+
+### How to run on Windows
+
+- TODO LIST
 
 ### Debugging
 
