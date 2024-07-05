@@ -44,9 +44,17 @@ void Auth::login()
         int colFirstName = res.find_column("usrsFirstName");
         std::string firstName;
         res.fetch(colFirstName, firstName);
-        std::cout << "First name : " << firstName << std::endl;
+        int colPassword = res.find_column("usrsLoginPass");
+        std::string _u_password;
+        res.fetch(colPassword, _u_password);
+        
+        if (_u_password == Password) {
+            // TODO: add jwt token
+            response().out() << "User accepted";
+            return;
+        }
     }
-    response().out() <<"User not found";
+    response().out() <<"Login invalid";
 }
 
 // method logout
