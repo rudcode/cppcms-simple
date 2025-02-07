@@ -27,7 +27,7 @@ Note:
 
 ### Debugging
 
-- Replace command at step 5 with `cmake -DCMAKE_BUILD_TYPE=Debug ..`
+- Run the project first by `How to run on Mac section` (if you used Mac OS M1) and replace command at step 5 with `cmake -DCMAKE_BUILD_TYPE=Debug ..`
 - Set Breakpoint which you want to debug like this (User.cpp:24)
 ![Set breakpoint](/screenshots/breakpoint.png)
 - On the VSCode, you can run by click Play Button at **Run and Debug** section
