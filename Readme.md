@@ -29,7 +29,13 @@ If those steps are not working due to cppdb dynamic libs, do this workaround to 
 
 ### How to run on Linux
 
-- TODO LIST
+1. Install cppcms http://cppcms.com/wikipp/en/page/cppcms_1x_build
+2. Install cmake
+3. Run `mkdir build`
+4. Run `cmake ..`
+5. Run `make -j$(( $(nproc)-1))`
+6. Run `cp ../db.db .` to copy the database example
+7. After executable `cppcms_simple` built, then you can run it by command `./cppcms_simple -c ../config.json`
 
 ### How to run on Windows
 
