@@ -6,14 +6,12 @@
 #include <data/Master.h>
 
 using database::Master;
-class Auth : public Master
-{
-public:
-    Auth(cppcms::service &srv);
+class Auth : public Master {
+ public:
+  Auth(cppcms::service &srv);
 
-    void login();
-    void logout();
-
+  void login();
+  void logout();
 };
 
 #endif

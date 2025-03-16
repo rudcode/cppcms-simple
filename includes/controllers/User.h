@@ -7,14 +7,12 @@
 
 using database::Master;
 
-class User : public Master
-{
-public:
-    User(cppcms::service &srv);
+class User : public Master {
+ public:
+  User(cppcms::service &srv);
 
-    void getUser();
-    void getUserById(std::string id);
-
+  void getUser();
+  void getUserById(std::string id);
 };
 
 #endif
