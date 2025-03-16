@@ -3,16 +3,17 @@
 
 #include <cppcms/application.h>
 #include <cppcms/service.h>
-#include <data/Master.h>
+#include <data/Connection.h>
 
-using database::Master;
-
-class User : public Master {
+class User : public cppcms::application {
  public:
-  User(cppcms::service &srv);
+  User(cppcms::service& srv, Connection& connection);
 
   void getUser();
   void getUserById(std::string id);
+
+ private:
+  Connection& connection;
 };
 
 #endif

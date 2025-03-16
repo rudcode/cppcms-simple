@@ -6,7 +6,8 @@
 #include <cppcms/url_mapper.h>
 
 // constructor
-User::User(cppcms::service &srv) : Master(srv) {
+User::User(cppcms::service& srv, Connection& connection)
+    : cppcms::application(srv), connection(connection) {
   dispatcher().assign("", &User::getUser, this);
   mapper().assign("");
 

@@ -3,15 +3,17 @@
 
 #include <cppcms/application.h>
 #include <cppcms/service.h>
-#include <data/Master.h>
+#include <data/Connection.h>
 
-using database::Master;
-class Auth : public Master {
+class Auth : public cppcms::application {
  public:
-  Auth(cppcms::service &srv);
+  Auth(cppcms::service& srv, Connection& connection);
 
   void login();
   void logout();
+
+ private:
+  Connection& connection;
 };
 
 #endif

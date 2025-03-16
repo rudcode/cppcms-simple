@@ -19,7 +19,6 @@ set(API_SRC
     includes/controllers/User.cpp
     includes/controllers/Auth.cpp
     includes/data/Connection.cpp
-    includes/data/Master.cpp
 )
 
 include_directories(${INC_BOOSTER})

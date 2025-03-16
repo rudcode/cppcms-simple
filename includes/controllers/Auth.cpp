@@ -10,7 +10,8 @@
 #include <picojson.h>
 
 // constructor
-Auth::Auth(cppcms::service &srv) : Master(srv) {
+Auth::Auth(cppcms::service &srv, Connection &connection)
+    : cppcms::application(srv), connection(connection) {
   dispatcher().assign("/login", &Auth::login, this);
   mapper().assign("/login");
 
@@ -39,7 +40,7 @@ void Auth::login() {
   }
   std::string LoginID = _user.get("User").get("LoginId").get<std::string>();
   std::string Password = _user.get("User").get("Password").get<std::string>();
-  cppdb::result res = sql()
+  cppdb::result res = connection.sql
                       << "SELECT * FROM users WHERE usrsLoginId = ?" << LoginID;
 
   if (res.next()) {

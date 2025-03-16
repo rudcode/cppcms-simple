@@ -1,17 +1,20 @@
-#ifndef __DB_CONNECTION__
-#define __DB_CONNECTION__
+#ifndef __CONNECTION__
+#define __CONNECTION__
 
+#include <cppcms/application.h>
 #include <cppdb/frontend.h>
 
-namespace database {
-    class Connection {
-    protected:
-        Connection(const std::string& constr) : sql(constr) {}
-        static Connection* connection_;
-    public:
-        cppdb::session sql;
-        static Connection *getInstance(const std::string& constr);
-    };
-}
+struct connectionStruct {
+  std::string dbConnectionString;
+};
+
+class Connection {
+ public:
+  Connection(connectionStruct c);
+  cppdb::session sql;
+
+ private:
+  void _database_initalization(std::string connectionString);
+};
 
 #endif

@@ -1,12 +1,11 @@
 #include "Connection.h"
 
-namespace database
-{
-    Connection* Connection::connection_ = nullptr;
-    Connection *Connection::getInstance(const std::string& constr) {
-        if (connection_ == nullptr) {
-            connection_ = new Connection(constr);
-        }
-        return connection_;
-    }
-} // namespace database
+#include <cppcms/json.h>
+
+Connection::Connection(connectionStruct c) {
+  _database_initalization(c.dbConnectionString);
+}
+
+void Connection::_database_initalization(std::string connectionString) {
+  sql.open(connectionString);
+}
